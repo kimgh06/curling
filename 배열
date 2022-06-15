@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<windows.h>
-char a[50][60] = {
+char board[50][60] = {
 	" --------------------------------------------------------- ",
 	"|                                                         |",
 	"|                                                         |",
@@ -52,10 +52,12 @@ char a[50][60] = {
 	"|                                                 |       |",
 	" ---------------------------------------------------------"
 };
+char title[50][60];
 void print() {
 	for (int i = 0; i < 50; i++) {
+		printf("\t\t\t\t\t\t");
 		for (int j = 0; j < 59; j++) {
-			printf("%c", a[i][j]);
+			printf("%c", board[i][j]);
 		}
 		if (i != 49)
 			printf("\n");
@@ -63,8 +65,11 @@ void print() {
 	Sleep(500);
 	system("cls");
 }
-int main() {
+void gamestart() {
 	while (1) {
 		print();
 	}
+}
+int main() {
+	gamestart();
 }
