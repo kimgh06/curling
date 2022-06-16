@@ -78,9 +78,9 @@ void print() {
 }
 void gamestart() {
 	while (1) {
-		if (_kbhit()) {
+		if (_kbhit()) { //입력 확인
 			char a = _getch();
-			if (a == ' ') {
+			if (a == ' ') { //스페이스바 아닐 경우 스킵
 				printf("스페이스바\n");
 			}
 		}
