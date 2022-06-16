@@ -1,5 +1,8 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
 #include<windows.h>
+#include<string.h>
+#include<conio.h>
 char board[50][60] = {
 	" --------------------------------------------------------- ",
 	"|                                                         |",
@@ -33,8 +36,8 @@ char board[50][60] = {
 	"|                                                         |",
 	"|                                                         |",
 	"|                                                         |",
-	"|                                                         |",
-	"|                                                         |",
+	"|                                              1P:        |",
+	"|                                              2P:        |",
 	"|---------------------------------------------------------|",
 	"|                                                         |",
 	"|                                                         |",
@@ -50,23 +53,37 @@ char board[50][60] = {
 	"|                                                 |       |",
 	"|                                                 |       |",
 	"|                                                 |       |",
-	" ---------------------------------------------------------"
+	" --------------------------------------------------------- "
 };
-char title[50][60];
+char title[50][60] = {" "};
+char ball[3][5] = {
+	" --- ",
+	"| @ |",
+	" --- "
+};
 void print() {
 	for (int i = 0; i < 50; i++) {
+		strcpy(title[i], board[i]); // 배경복사
+	}
+	for (int i = 0; i < 50; i++) {
 		printf("\t\t\t\t\t\t");
-		for (int j = 0; j < 59; j++) {
-			printf("%c", board[i][j]);
+		for (int j = 0; j < 60; j++) {
+			printf("%c", title[i][j]);
 		}
 		if (i != 49)
 			printf("\n");
 	}
-	Sleep(500);
+	Sleep(250);
 	system("cls");
 }
 void gamestart() {
 	while (1) {
+		if (_kbhit()) {
+			char a = _getch();
+			if (a == ' ') {
+				printf("스페이스바\n");
+			}
+		}
 		print();
 	}
 }
