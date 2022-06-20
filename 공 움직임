@@ -57,22 +57,48 @@ char board[50][60] = {
 };
 char title[50][60];
 char ball[3] = {"|@|"};
-int on = 0, locat = 1, up = 0, dtc = 0;
-void sweep() {
-	title[46][29] = '|';
-	title[46][30] = '@';
-	title[46][31] = '|';
-	if (on == 1) {
-		if (_kbhit()) {
-			char a = _getch();
-			if (a == ' ') {//가속 됨
-				dtc += 1;
+int on = 0, locat = 5, up = 0, dtc = 0, speed = 0;
+void push() {
+	if (_kbhit()) {
+		char a = _getch();
+		if (a == ' ') {//입력
+			if (on == 1) {//갈 거리 증가				
+				dtc++;
+			}
+			else if (on == 0) {//속도 초기화
+				if (locat > 5)
+					dtc += 2 * (10 - locat);
+				else
+					dtc += locat * 2;
+				on = 1;
 			}
 		}
 	}
 }
+void sweep() {
+	push();
+	if (dtc == 0) { //종료
+		on = 0;
+	}
+	else if (dtc > 1) {
+		switch (dtc / 2) {
+		case 1:
+			dtc -= 2;
+			speed += 2;
+			break;
+		case 2:
+			dtc -= 4;
+			speed += 4;
+			break;
+		}
+	}
+	else {
+		dtc--;
+		speed++;
+	}
+	printf("이동 중");
+}
 void updown() {
-	title[35 + locat][50] = '>';
 	if (on == 0) {
 		if (locat == 1) { //방향 설정
 			up = 0;
@@ -87,43 +113,17 @@ void updown() {
 			locat--;
 		}
 	}
-}
-void start() {
-	if (_kbhit()) { //입력 확인
-		char a = _getch();
-		if (a == ' ') { //스페이스바 아닐 경우 스킵
-			on = 1;
-			if (locat >= 6) {//초기 거리 설정
-				switch (locat) {
-				case 6:
-					dtc += 4;
-					break;
-				case 7:
-					dtc += 3;
-					break;
-				case 8:
-					dtc += 2;
-					break;
-				case 9:
-					dtc += 1;
-					break;
-				}
-			}
-			else
-				dtc += locat;
-			printf("%d", dtc);
-		}
-	}
+	title[34 + locat][50] = '>';
+	printf("%d", locat);//확인
 }
 void copy() {
 	for (int i = 0; i < 50; i++) {
 		strcpy(title[i], board[i]); // 배경복사
 	}
 	updown(); //위 아래로 움직이는 화살표
-	sweep(); //출발후 가속
+	title[46 - speed][28] = ball[0]; title[46 - speed][29] = ball[1]; title[46 - speed][30] = ball[2];
 }
 void print() {
-	copy();
 	for (int i = 0; i < 50; i++) {
 		printf("\t\t\t\t\t\t");
 		printf("%s", title[i]);
@@ -135,12 +135,12 @@ void print() {
 }
 void gamestart() {
 	while (1) {
-		if (on == 0) {
-			start();
-		}
-		else if (on == 1) {
+		copy();
+		push();
+		if (on == 1)
 			sweep();
-		}
+		else if (on == 0)
+			speed = 0; //초기화
 		print();
 	}
 }
