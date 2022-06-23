@@ -144,7 +144,7 @@ void push() {
 		if (a == ' ') {//입력
 			if (on == 1) {//갈 거리 증가
 				click = 1;
-				dtc += click * (gn / (st-(double)clock() / CLOCKS_PER_SEC)); //나중 시간 - 출발 시간
+				dtc += click * (gn / (((double)clock() / CLOCKS_PER_SEC) - st)); //나중 시간 - 출발 시간
 			}
 			else if (on == 0) {//속도 초기화
 				if (locat > 5)
@@ -159,7 +159,7 @@ void push() {
 	click = 0;
 }
 void sweep() {
-	if (dtc == 0) { //모두 초기화
+	if (dtc <= 0) { //모두 초기화
 		on = 2;
 	}
 	else {
@@ -258,12 +258,9 @@ void gamestart() {
 		copy();
 		if (on == 0) {
 			what = 0;
+				st = (double)clock() / CLOCKS_PER_SEC;
 		}
 		else if (on == 1) {
-			if (what == 0) {
-				st = (double)clock() / CLOCKS_PER_SEC;
-				what = 1;
-			}
 			used = 0; //점수 계산 초기화
 			sweep();
 		}
