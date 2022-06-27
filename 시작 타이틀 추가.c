@@ -112,7 +112,7 @@ char board[50][60] = {
 };
 char title[50][60];
 char name1[6] = {"what"}, name2[6] = {"hello"};
-int on = 0, locat = 4, up = 0, dtc = 0, speed = 0, player = 0, used = 0, gn, click = 0, twink = 250;
+int on = 0, locat = 4, up = 0, dtc = 0, speed = 0, player = 0, used = 0, gn, click = 0, twink = 200;
 short b1 = 5, b2 = 5, p1 = 0, p2 = 0, bx = 29, by, turn = 0, lr = 1; // 30 미만
 double st; //시작 시간
 enum {
@@ -135,6 +135,9 @@ enum {
 };
 void setColor(unsigned short text) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), text);
+}
+void wrn() {//이름 쓰기
+
 }
 void point() {
 	if (used == 0) {
@@ -233,6 +236,17 @@ void push() {
 				else if (lr > 2) {
 					lr = 0;
 				}
+			}
+			else  if (a == ' ') { //스페이스 바를 입력 했을 때
+				if (lr == 0) {
+					wrn();
+					turn = 1;
+				}
+				else if (lr == 1) {
+
+				}
+				else if (lr == 2)
+					exit(0);
 			}
 		}
 		else if (turn == 1) {
@@ -400,13 +414,11 @@ void tprint() {
 	}
 }
 void gametitle() {
-	while(1){
-		tcopy();
-		push();
-		tprint();
-		Sleep(twink);
-		system("cls");
-	}
+	tcopy();
+	push();
+	tprint();
+	Sleep(twink);
+	system("cls");
 }
 int main() {
 	while (1) {
