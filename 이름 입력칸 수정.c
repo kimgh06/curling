@@ -38,6 +38,7 @@ char startboard[50][60] = {
 	"|     ----------------------                              |",
 	"|                                                         |",
 	"|                                                         |",
+	"|          * 스페이스 바로 선택하실수 있습니다.           |",
 	"|                                                         |",
 	"|                                                         |",
 	"|                                                         |",
@@ -46,7 +47,6 @@ char startboard[50][60] = {
 	"|                                                         |",
 	"|                                                         |",
 	"|                                                         |",
-	"|          * 스페이스 바로 선택하실수 있습니다            |",
 	"|   ---------------   ---------------   ---------------   |",
 	"|  |               | |               | |               |  |",
 	"|  |               | |               | |               |  |",
@@ -150,6 +150,10 @@ void wrn() {//이름 쓰기
 			scanf("%c", &sure);
 		}
 		Sleep(1000);
+		if (sure == 'n' || sure == 'N') {
+			printf("\n\t\t\t\t\t\t\t이름을 다시 입력합니다.");
+			Sleep(2000);
+		}
 	} while (sure != 'y' && sure != 'Y');
 	printf("\t\t\t\t\t\t\t3\n");
 	Sleep(1000);
@@ -277,9 +281,9 @@ void push() {
 			if (on == 0) {
 				if (a == ' ') {//속도 초기화
 					if (locat > 5)
-						dtc = (10 - locat) + 9;
+						dtc = (10 - locat) + 7;
 					else
-						dtc = locat + 9;
+						dtc = locat + 7;
 					gn = dtc;
 					on = 1;
 				}
@@ -288,7 +292,7 @@ void push() {
 				if (a == -32) {//갈 거리 증가, up버튼
 					char a = _getch();
 					if (a == 72) {
-						dtc += ((gn + 1) / (4 * (((double)clock() / CLOCKS_PER_SEC) - st))); //나중 시간 - 출발 시간 초당
+						dtc += ((gn + 2) / (4 * (((double)clock() / CLOCKS_PER_SEC) - st))); //나중 시간 - 출발 시간 초당
 					}
 				}
 			}
