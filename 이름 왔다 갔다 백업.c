@@ -298,7 +298,6 @@ void push() {
 				else if (a == ' ') {
 					if (LR == 0) {
 						sure = 1;
-						on = 0;
 					}
 					else if (LR == 1) {
 						sure = 2;
@@ -526,8 +525,11 @@ void gamestart() {
 }
 void gametitle() {
 	push();
-	copy();
-	print();
+	if (on == 0) {
+		copy();
+		print();
+		return;
+	}
 }
 int main() {
 	LR = 1;
