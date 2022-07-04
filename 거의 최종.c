@@ -6,6 +6,58 @@
 #include<time.h>
 #include <mmsystem.h>
 #pragma comment(lib,"winmm.lib")
+char mtboard[50][60] = {
+	" --------------------------------------------------------- ",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	"|                                                         |",
+	" --------------------------------------------------------- ",
+};
 char overboard[50][60] = {
 	" --------------------------------------------------------- ",
 	"|                                                         |",
@@ -186,6 +238,21 @@ enum {
 	WHITE,
 };
 void push(); void print();
+void xplain() {
+	for (int i = 8; i > 0; i--) {
+		printf("\n\n\n\n\n\n\n\n\t\t\t\t\t\t\t\t\t\t커서 이동\n\n");
+		printf("\t\t\t\t\t\t\t1. 방향키를 움직여 커서를 이동할 수 있습니다.\n\n");
+		printf("\n\n\t\t\t\t\t\t\t\t\t\t게임 방법\n\n");
+		printf("\t\t\t\t\t\t\t1. 이 게임은 과녁안에 공을 넣어 점수를 획득할수 있습니다.\n\n");
+		printf("\t\t\t\t\t\t\t2. 점수는 중앙부터 5점, 4점, 3점, 2점, 1점 순입니다.\n\n");
+		printf("\t\t\t\t\t\t\t3. 스페이스 바를 눌러 공을 출발시킬수 있습니다.\n\n");
+		printf("\t\t\t\t\t\t\t4. 방향키 ↑키를 눌러 공을 가속시킬수 있습니다.\n\n");
+		printf("\t\t\t\t\t\t\t5. 공은 플레이어당 5개씩 던질수 있습니다.\n\n");
+		printf("%d 초 남았습니다.", i);
+		Sleep(1000);
+		system("cls");
+	}
+}
 void setColor(unsigned short text) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), text);
 }
@@ -324,8 +391,8 @@ void push() {
 						system("cls");
 						on = 1;
 					}
-					else if (LR == 1) {
-						//설명 필요
+					else if (LR == 1) {//설명
+						xplain();
 					}
 					else if (LR == 2)
 						exit(0);
@@ -363,9 +430,9 @@ void push() {
 			if (on == 0) {
 				if (a == ' ') {//속도 초기화
 					if (locat > 5)
-						dtc = (10 - locat) + 7;
+						dtc = (10 - locat) + 9;
 					else
-						dtc = locat + 7;
+						dtc = locat + 9;
 					gn = dtc;
 					on = 1;
 				}
@@ -461,7 +528,6 @@ void copy() {
 		}
 		title[46][13] = (p1 / 10) + 48; title[46][14] = p1 % 10 + 48; //1의 점수 확인
 		title[48][13] = (p2 / 10) + 48; title[48][14] = p2 % 10 + 48; //2의 점수 확인
-
 		by = 46 - speed;
 		title[by][bx - 1] = '|'; //공 위치 입력
 		title[by][bx] = '@';
@@ -650,9 +716,9 @@ int main() {
 		}
 		else if (turn == 3) {
 			setColor(SKYBLUE);
-			printf("\n\n\n\n\n\n\n\t\t\t\t\t\t\tGAME OVER");
+			printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\t\t\t\tGAME OVER");
 			setColor(WHITE);
-			printf("\n\n\n\n\n\n\n\n\n");
+			printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 			return 0;
 		}
 	}
